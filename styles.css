@@ -1,0 +1,56 @@
+:root {
+    /* colorPallet */
+    --main: #FFFBFB;
+    --background: #F0EEF1;
+    --green: #9FFF9C;
+    --font: #050505;
+    --red: #FF9C9C;
+    /* border */
+    --shadow: rgba(0, 0, 0, 0.16) 0px 1px 5px;
+    --lightShadow: rgba(0, 0, 0, 0.16) 0px 1px 2px;
+}
+
+
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body, html {
+    padding: 0;
+    margin: 0;
+    background-color: var(--background);
+}
+h1{
+    text-align: center;
+}
+
+#empty{
+    height: 2px;
+    width: 100vw;
+    box-shadow: var(--shadow);
+}
+
+
+
+#gridContainer {
+    display: grid;
+    grid-template-rows: repeat(3, fit-content(1fr));
+    grid-template-columns: repeat(3, 1fr);
+    width: 25vw;
+    aspect-ratio: 1;
+    margin: 50px auto;
+    border-radius: 25px;
+    box-shadow: var(--shadow);
+}
+
+#gridContainer > div{
+    font-size: 2em;
+    aspect-ratio: 1;
+    display: flex; justify-content: center; align-items: center;
+    border-radius: 25px;
+    box-shadow: var(--lightShadow);
+}
+
+
+/* irresponsive */
