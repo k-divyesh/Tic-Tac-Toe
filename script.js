@@ -50,6 +50,12 @@ const gameBoard = (() => {
                     gameBoardArr.splice(parseInt(item.getAttribute('id')), 1, ongoingTurn);
                     item.innerHTML = ongoingTurn;
                     console.log(ongoingTurn);
+                    
+                    var gameOver = checkEnd(); 
+                    if (gameOver != undefined) {
+                        if (gameOver == "tie") alert(gameOver)
+                        else alert(`${checkEnd()} won`)
+                    }
                 }
             })
         });
@@ -57,20 +63,42 @@ const gameBoard = (() => {
     
 
     //check if won or tie
-    function checkEnd(xCounter = gameBoardArr, oCounter = gameBoardArr) {
-        var xCount = (gameBoardArr.filter(val => val === "x")).length
-        var oCount = (gameBoardArr.filter(val => val === "o")).length        
-        if ((xCount > 3) || (oCount > 3)) {
-            for (i=0; i<9; i++) {
-                // xCount.map(element => element = )
-                // replace all
+    function checkEnd(boardPosition = [gameBoardArr.slice(0,3), gameBoardArr.slice(3,6), gameBoardArr.slice(6,9)]) {
+        for (i=0; i<3; i++) { 
+            /* rows */
+            var row = boardPosition[i];
+            if ((row.every(val => val === "x")) || (row.every(val => val === "o"))) {
+                return boardPosition[i][0]
+            }
+            /* columsn */
+            var column = [boardPosition[0][i], boardPosition[1][i], boardPosition[2][i]]
+            if ((column.every(val => val === "x")) || (column.every(val => val === "o"))) {
+                return boardPosition[0][i] ;
+            }
+            /* diagonals */
+            var fallingDiagonal = [boardPosition[0][0], boardPosition[1][1], boardPosition[2][2]]
+            if ((fallingDiagonal.every(val => val === "x")) || (fallingDiagonal.every(val => val === "o"))) {
+                return boardPosition[0][0];
+            }
+
+            var risingDiagonal = [boardPosition[0][2], boardPosition[1][1], boardPosition[2][0]]
+            if ((risingDiagonal.every(val => val === "x")) || (risingDiagonal.every(val => val === "o"))) {                
+                return boardPosition[0][2]
+            }
+            //tie
+            if (! gameBoardArr.includes(" ")) {
+                return "tie";
             }
         }
+
     }
+        
+    
 
     return {
         showInitialGameBoard,
         onClick,
+        checkEnd,
     };
 
 })();
